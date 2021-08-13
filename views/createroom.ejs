@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Room list</title>
+    <link rel="stylesheet"href="https://use.fontawesome.com/releases/v5.12.1/css/all.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/"><img src="/img/logo.png" width="180" height="50"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/room">Room Listing</a>
+                        </li>
+                        <li class="nav-item">
+                            <% if(ok){ %>
+                                <a class="nav-link" href="/logout">Log Out</a>
+                              <% } else{ %>
+                                <a class="nav-link" href="/singup">Sign Up</a>
+                             <% } %>
+                        </li>
+        
+                    </ul>
+                </div>
+        
+            </div>
+        </nav>
+    </header>
+
+<!------------------------------------------------------------------------------------>
+
+<div class="container padding text-center">
+    <h1 class="mb-4 text-black">Create Room</h1>
+
+    <form action="/createRoom" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+
+            <h3 for="rtitle" class="text-black">Room Title</h3>
+            <input type="text" class="form-control" placeholder="Room Title" name="rtitle" required>
+        </div>
+
+        <div class="form-group">
+
+            <h3 for="price" class="text-black">Price</h3>
+            <input type="text" class="form-control" placeholder="Price per night" name="price" required>
+        </div>
+        <div class="form-group">
+
+            <h3 for="desc" class="text-black">Description</h3>
+            <textarea name="desc" placeholder="Description" class="form-control"></textarea>
+        </div>        
+        <div class="form-group">
+            <h3 for="location" class="text-black">Location</h3>
+            <select class="form-control form-control-md" id="location" name="location">
+                <option value="Toronto">Toronto</option>
+                <option value="Vaughan">Vaughan</option>
+                <option value="Markham">Markham</option>
+                <option value="Ottawa">Ottawa</option>
+                <option value="Waterloo">Waterloo</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <h3 for="image" class="text-black">Upload image</h3>
+            <input type="file" name="image" id="image" class="form-control-file text-black">
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn subBtn">Create Room</button>
+        </div>
+    </form>
+</div>
+
+
+<!---------------------------------------------------------------------------->
+<footer>
+    <div class="container-fluid padding">
+        <div class="row text-center padding">
+            <div class="col-12">
+                <h3>Follow us:</h3>
+                <p>Get news in our social media, lets be friends :D</p>
+            </div>
+            <div class="col-12 social padding">
+                <a href="https://www.facebook.com/AirbnbBrasil/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://twitter.com/airbnb"  target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.instagram.com/airbnb/"  target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+
+</html>

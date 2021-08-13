@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Room list</title>
+    <link rel="stylesheet"href="https://use.fontawesome.com/releases/v5.12.1/css/all.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/"><img src="/img/logo.png" width="180" height="50"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/room">Room Listing</a>
+                        </li>
+                        <li class="nav-item">
+                            <% if(ok){ %>
+                                <a class="nav-link" href="/logout">Log Out</a>
+                              <% } else{ %>
+                                <a class="nav-link" href="/singup">Sign Up</a>
+                             <% } %>
+                        </li>
+        
+                    </ul>
+                </div>
+        
+            </div>
+        </nav>
+    </header>
+
+<!------------------------------------------------------------------------------------>
+
+
+<br><br>
+<div class="container padding text-center">
+    <% if(isadmin){ %>
+        <h1 class="display-4"><%= isadmin %></h1>
+    <% } %>
+    <a href="/createroom"><button type="button" class="btn btn-primary btn-lg">Create some room</button></a>
+</div>
+
+<div class="container-fluid padding">
+<div class="row welcome text-center">
+    <div class="col-12">
+        <h1 class="display-4">Rooms</h1>
+    </div> <hr>
+</div>
+</div>
+
+<form action="/search" class="col-md-6 container-fluid padding" method="POST">
+    <div class="form-group col-md-12">
+        <h3 class="font-weight-bold center" for="City">Search by location</h3>
+        <select class="form-control form-control-md" id="City" name="location">
+            <option value="Anywhere">Anywhere</option>
+            <option value="Toronto">Toronto</option>
+            <option value="Vaughan">Vaughan</option>
+            <option value="Markham">Markham</option>
+            <option value="Ottawa">Ottawa</option>
+            <option value="Waterloo">Waterloo</option>
+        </select>
+    </div>
+
+    <br>
+    <button id="botao" type="submit" class="btn btn-primary btn-lg container-fluid">Search</button>
+    <br><br><br><br>
+</form> 
+
+<div class="container-fluid padding">
+<div class="row padding">
+
+    <% if(room.length<1){%>
+        <p class="text-white">No rooms yet :(</p>
+    <%  } %>
+
+    <% room.forEach(roo=>{ %>
+        <div class="col-md-4 padding">
+            <div class="card">
+                <img class="card-img-top" src="/uploads/images/<%= roo.photo %>">
+                <div class="card-body">
+                    <h4 class="card-title"> <%= roo.roomTitle %> </h4>
+                    <p class="card-text"><%= roo.desc%></p>
+                    <p class="card-text">$<%= roo.price %>CAD/night</p>
+                    <p class="card-text text-primary font-weight-bold"><%= roo.location%></p>
+                    <a href="/viewroom/<%= roo._id%>" class="btn btn-primary">Look room</a>
+                    <% if(user.admin){ %>
+                    <a href="/editroom/<%= roo._id%>" class="btn btn-update">Update</a>
+                    <a href="/deleteroom/<%= roo._id%>" class="btn btn-update">Delete</a>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    <% }) %>
+
+</div>
+</div>
+
+
+<!---------------------------------------------------------------------------->
+<footer>
+    <div class="container-fluid padding">
+        <div class="row text-center padding">
+            <div class="col-12">
+                <h3>Follow us:</h3>
+                <p>Get news in our social media, lets be friends :D</p>
+            </div>
+            <div class="col-12 social padding">
+                <a href="https://www.facebook.com/AirbnbBrasil/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://twitter.com/airbnb"  target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.instagram.com/airbnb/"  target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+
+</html>

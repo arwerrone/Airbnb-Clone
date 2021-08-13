@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Airbnb :D</title>
+    <link rel="stylesheet"href="https://use.fontawesome.com/releases/v5.12.1/css/all.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+    
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/"><img src="/img/logo.png" width="180" height="50"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/room">Room Listing</a>
+                        </li>
+
+                        <li class="nav-item">
+
+                            <% if(ok){ %>
+                                <a class="nav-link" href="/logout">Log Out</a>
+                              <% } else{ %>
+                                <a class="nav-link" href="/singup">Sign Up</a>
+                             <% } %>
+                        </li>
+        
+                    </ul>
+                </div>
+        
+            </div>
+        </nav>
+    </header>
+
+    <div id="slides" class="carousel slide" data-ride="carousel">
+        <ul class="carousel-indicators">
+            <li data-target="#slides" data-slide-to="0" class="active"></li>
+            <li data-target="#slides" data-slide-to="1"></li>
+        </ul>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+<!-- FAZER -->
+                <img src="/uploads/images/<%= roo.photo %>">
+
+            </div>
+    </div>
+    
+    
+    <div class="container-fluid padding">
+        <div class="row welcome text-center">
+            <br><hr><br>
+            <!---->
+
+            <!---->
+            
+            <div class="col-12">
+                <h1 class="display-3"><%= roo.roomTitle %></h1>
+            </div><br><hr><br>
+            <div class="col-12">
+                <h3 class="display-6">$<%= roo.price %> per night</h3>
+            </div><br><hr><br>
+            <div class="col-12">
+                <p class="lead"><%= roo.desc %></p>
+            </div><br><hr><br>
+    
+
+            <form action="/calculatetotal/<%= roo._id%>" class="col-12" method="POST">
+                <h2 class="display-4">How much you are going to spend?</h2><br><br>
+    
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <h3 class="font-weight-bold"  for="checkin">Check-in</h3>
+                        <input id="checkin" type="date" name="dateIN" required />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <h3 class="font-weight-bold"  for="checkout">Checkout</h3>
+                        <input id="checkout" type="date" name="dateOUT" required />
+                    </div>
+                </div>
+
+                <br>
+                <button id="botao" type="submit" class="btn btn-primary btn-lg">Calculate total</button>
+                <br>
+            </form> 
+
+
+            <% if(tot > 0){ %>
+                <div class="col-12"><br>
+                    <p class="lead">Your total is: $<%= tot%></p>
+                </div>
+             <% } %>
+
+            <br><hr><br>
+    
+
+        <% if (loggedd) { %>
+            <form action="/book/<%= roo._id%>" class="col-12" method="POST">
+                <h2 class="display-4">Ready to book? :D</h2><br><br>
+    
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <h3 class="font-weight-bold"  for="checkin">Check-in</h3>
+                        <input id="checkin" type="date" name="chekindate" required />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <h3 class="font-weight-bold"  for="checkout">Checkout</h3>
+                        <input id="checkout" type="date" name="checkoutdate" required />
+                    </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <h3 class="font-weight-bold" for="guest">Guests</h3><br>
+                    <select class="form-control form-control-sm" id="guest" name="guest">
+                        <option value="1">1 guest</option>
+                        <option value="2">2 guest</option>
+                        <option value="3">3 guest</option>
+                        <option value="4">4 guest</option>
+                        <option value="5+">5 or more</option>
+                    </select>
+                </div>
+
+                <br>
+                <button id="botao" type="submit" class="btn btn-primary btn-lg">Book</button>
+                <br>
+            </form> 
+        <% } else { %>
+            <div class="col-12">
+                <h1 class="display-3">You must be logged to book a room</h1>
+                <a class="nav-link" href="/singup"><button class="btn btn-primary">Sign Up</button></a>
+            </div><br><hr><br>
+        <% } %>
+
+
+        </div>
+    </div>
+
+    <footer>
+        <div class="container-fluid padding">
+            <div class="row text-center padding">
+                <div class="col-12">
+                    <h3>Follow us:</h3>
+                    <p>Get news in our social media, lets be friends :D</p>
+                </div>
+                <div class="col-12 social padding">
+                    <a href="https://www.facebook.com/AirbnbBrasil/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/airbnb"  target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/airbnb/"  target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
